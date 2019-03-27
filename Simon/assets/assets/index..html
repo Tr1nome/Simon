@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title> Simon </title>
+    <script src="jquery.min.js"></script>
+    <script src="simon.js"></script>
+    
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column wrap;
+            width: 100%;
+			background:url(./images/simonBg.png);
+			background-position: 51%;
+			background-repeat: no-repeat;
+			
+        }
+        button{
+            position: absolute; 
+            top: 54%;
+			left: 51%;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+         }
+        .side{
+            display:flex;
+            margin: 0;
+    
+        }
+		
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="side">
+            <div class="img">
+                <img src="images/green.png" class = "btn"  id="green">
+            </div>
+            <div class="img">
+                <img src="images/red.png"  class = "btn" id="red" >
+            </div>
+        </div>
+        <div class="side">
+            <div class="img">
+                <img src="images/yellow.png"  class = "btn"  id="yellow" >
+            </div>
+            <div class="img">
+                <img src="images/blue.png" class = "btn"   id="blue"   >
+            </div>
+        </div>
+
+    </div>
+     <button id="go"> Go  </button>
+    
+
+
+
+
+</body>
+
+</html>
