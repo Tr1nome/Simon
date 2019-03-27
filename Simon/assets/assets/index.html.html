@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title> Simon </title>
+    <script src="scriptSimon.js"> </script>
+    <script src="jquery.min.js"></script>
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column wrap;
+            width: 100%;
+        }
+        button{
+            position: absolute; 
+            top: 50%;
+            left:50%;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+         }
+        .side{
+            display:flex;
+            margin: 0;
+    
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button id="go"> Go  </button>
+           
+      
+        <div class="side">
+            <div class="img">
+                <img src="images/green.png"  id="green" alt="">
+            </div>
+            <div class="img">
+                <img src="images/red.png" id="red" alt="">
+            </div>
+        </div>
+        <div class="side">
+            <div class="img">
+                <img src="images/yellow.png"  id="yellow" alt="">
+            </div>
+            <div class="img">
+                <img src="images/blue.png"  id="blue"   alt="">
+            </div>
+        </div>
+
+    </div>
+
+    
+
+
+
+
+</body>
+
+</html>
