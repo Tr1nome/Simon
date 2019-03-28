@@ -2,7 +2,8 @@ var blueSound = new Audio("sounds/son1.mp3");
 var greenSound = new Audio("sounds/son2.mp3");
 var redSound = new Audio("sounds/son3.mp3");
 var yellowSound = new Audio("sounds/son4.mp3");
-var green,red,yellow,blue,touches,randomTab,playerTab,number,count;
+var loseSound = new Audio("sounds/lose.mp3");
+var green,red,yellow,blue,touches,randomTab,playerTab,number,count,round;
 
 
 function awake(){
@@ -18,7 +19,7 @@ function awake(){
 	playerTab =[];
 	number = 0;
 	count = null;
-
+	round = 0;
 
 }
 
@@ -107,8 +108,9 @@ function check(tabCpu, tabPly){
 		
 	}
 	if (tabPly.length == tabCpu.length && tabCpu[number] == tabPly[number]){
-		setTimeout(startGame(), 2000)	
+		setTimeout(startGame(), 1000)	
 		$(".countdown").html("Manche terminée !");
+		round++;
 		clearInterval(count)
 	}
 	else {
@@ -124,13 +126,16 @@ function lose(loseType){
 	switch (loseType){
 
 		case "noTime": console.log("perdu, faute de temps !");
+		loseSound.play();
 		$(".lose h1").text("Perdu faute de temps !");
 		$(".lose").fadeIn().css("display","flex");
 		break;
 		
 		case "wrongChoice" : console.log("perdu, mauvais bouton !");
+		loseSound.play();
 		$(".lose h1").text("Perdu mauvais bouton !");
 		$(".lose").fadeIn().css("display","flex");
+		$(".lose p span").text(round);
 		clearInterval(count);
 		break;
 
@@ -140,8 +145,12 @@ function lose(loseType){
 	$(".lose .ok").click(function(){
 		$(".lose").fadeOut();
 		$("#go").attr("disabled",false);
+		time = 0;
+		$(".countdown").text(time);
+		awake();
+		startGame();
 	});
-	awake();
+	
 }
 
 
@@ -200,6 +209,7 @@ $ (document).ready(function(){
 	
 
 	awake();
+
 
 
 })
