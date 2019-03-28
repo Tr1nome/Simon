@@ -5,7 +5,9 @@
     <meta charset="UTF-8" />
     <title> Simon </title>
     <script src="jquery.min.js"></script>
+    <script src="jquery-ui.js"></script>
     <script src="scriptSimon.js"> </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     
 
     <style>
@@ -23,8 +25,11 @@
             top: 215px;
             left: 186px;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
+            border:1px solid white;
+            background-color: #00FF00;
+            background-color: black;
          }
         .side{
             display:flex;
@@ -34,11 +39,15 @@
 
         .countdown{
 
+            position: relative;
             color: white;
-            position: absolute;
-            top: 500px;
-            left: 520px;
             margin: 0px;
+            left: 150px;
+            top: 250px;
+            width: 100px;
+            background: grey;
+            display: flex;
+            justify-content: center;
         }
         
         .lose{
@@ -68,14 +77,33 @@
             top: 50px;
         }
 
+        #title{
+            display: none;
+            color:white;
+            font-size: 55px;
+        }
+
+        .container{
+            display: none;
+        }
+
 
     </style>
 </head>
 
 <body>
+    <div class = "gameHolder">
+        <button id = "start">Commencer</button>
+    
+        <div id = "title">
+        Simon
+
+        </div>
+    </div>
     <div class="container">
-        <button id="go" style = "background:green;"></button>
+        <button id="go"></button>
         <div class = "countdown">
+            Temps
         </div>
 
         <div class = "lose">
