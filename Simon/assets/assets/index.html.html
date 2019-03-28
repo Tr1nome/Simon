@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <title> Simon </title>
-    <script src="scriptSimon.js"> </script>
     <script src="jquery.min.js"></script>
+    <script src="scriptSimon.js"> </script>
+    
 
     <style>
         body {
@@ -15,11 +16,12 @@
             align-items: center;
             flex-flow: column wrap;
             width: 100%;
+            background-color: black;
         }
-        button{
-            position: absolute; 
-            top: 50%;
-            left:50%;
+        #go{
+            position: relative;
+            top: 215px;
+            left: 186px;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -30,33 +32,79 @@
     
         }
 
+        .countdown{
+
+            color: white;
+            position: absolute;
+            top: 500px;
+            left: 520px;
+            margin: 0px;
+        }
+        
+        .lose{
+
+            border:1px solid white;
+            width:39vw;
+            height:50vh;
+            color:white;
+            position:absolute;
+            background-color: black;
+            display: none;
+            justify-content: center;
+        }
+
+        .ok{
+            width: 100px;
+            height: 20px;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .details{
+
+            width: 300px;
+            height: 30px;
+            position: absolute;
+            top: 50px;
+        }
+
 
     </style>
 </head>
 
 <body>
     <div class="container">
-        <button id="go"> Go  </button>
+        <button id="go" style = "background:green;"></button>
+        <div class = "countdown">
+        </div>
+
+        <div class = "lose">
+            <h1>Perdu !</h1>
+            <p class = "details">Manches tenues : <span>0</span></p>
+            <button class = "ok">Rejouer</button>
+
+        </div>
            
       
         <div class="side">
             <div class="img">
-                <img src="images/green.png"  id="green" alt="">
+                <img src="images/green.png"  id="green" class = "input" alt="">
             </div>
             <div class="img">
-                <img src="images/red.png" id="red" alt="">
+                <img src="images/red.png" id="red" class = "input" alt="">
             </div>
         </div>
         <div class="side">
             <div class="img">
-                <img src="images/yellow.png"  id="yellow" alt="">
+                <img src="images/yellow.png"  id="yellow" class = "input" alt="">
             </div>
             <div class="img">
-                <img src="images/blue.png"  id="blue"   alt="">
+                <img src="images/blue.png"  id="blue" class = "input"  alt="">
             </div>
         </div>
 
     </div>
+    
 
     
 
