@@ -2,26 +2,30 @@ var blueSound = new Audio("sounds/son1.mp3");
 var greenSound = new Audio("sounds/son2.mp3");
 var redSound = new Audio("sounds/son3.mp3");
 var yellowSound = new Audio("sounds/son4.mp3");
-var green = $("#green");
-var red = $("#red");
-var yellow = $(".yellow");
-var blue = $("#blue");
-var touches = $(".input");
+var green,red,yellow,blue,touches,randomTab,playerTab,number,count;
 
 
-var randomTab = [];
-var playerTab =[];
-var number = 0;
-var count = null;
+function awake(){
 
+	green = $("#green");
+	red = $("#red");
+	yellow = $(".yellow");
+	blue = $("#blue");
+	touches = $(".input");
+
+
+	randomTab = [];
+	playerTab =[];
+	number = 0;
+	count = null;
+
+
+}
 
 function startGame(){
 
-	var inputs = $(".input");
 	number = 0;
-	for(var j = 0; j< inputs.length; j++){
-		inputs[j].disabled = true;
-		}
+	$(".input").css("pointer-events","none");
 	$("#go").disabled = true;
 	randomize(randomTab);
 	createTimer(randomTab);
@@ -42,21 +46,19 @@ function createTimer(tab){
 	var timer = setInterval(function(){
 		var index = tab[i];
 		swapImage(tab, index)
-		++i;
+		i+=1;
 		if (i == tab.length){
 			clearInterval(timer)
 			var time = 2*tab.length;
 			count = setInterval(function(){
-				$(".countdown").html(time);
+				$(".countdown").text(time);
 				time--;
 				if (time == -1){
 					clearInterval(count)
-					lose()
+					lose("noTime");
 				}
-			},1000);;
-	for(var j = 0; j< touches.length; j++){
-		touches[j].disabled = false;
-			}
+			},1000);
+	$(".input").css("pointer-events","auto");
 		 }
 	},1000);
 	
@@ -69,7 +71,7 @@ function swapImage(tab, index){
 		greenSound.play()
 		setTimeout(function(){
 		$("#green").attr("src","./images/green.png");
-	},500);
+	},300);
 	}
 	if (index == 2){
 		console.log("ordi choisi rouge !");
@@ -77,7 +79,7 @@ function swapImage(tab, index){
 		redSound.play()
 		setTimeout(function(){
 		$("#red").attr("src","./images/red.png");
-	},500);
+	},300);
 	}
 	if (index == 3){
 		console.log("ordi choisi bleu !");
@@ -85,7 +87,7 @@ function swapImage(tab, index){
 		blueSound.play();
 		setTimeout(function(){
 		$("#blue").attr("src","./images/blue.png");
-	},500);
+	},300);
 	}
 	if (index == 4){
 		console.log("ordi choisi jaune !");
@@ -93,18 +95,18 @@ function swapImage(tab, index){
 		yellowSound.play();
 		setTimeout(function(){
 		$("#yellow").attr("src","./images/yellow.png");
-	},500);
+	},300);
 	}
 
 }
 
-function check(tabC, tabP){
-	if(tabC[number] != tabP[number]){
+function check(tabCpu, tabPly){
+	if(tabCpu[number] != tabPly[number]){
 		console.log("perdu")
-		lose();
+		lose("wrongChoice");
 		
 	}
-	if (tabP.length == tabC.length && tabC[number] == tabP[number]){
+	if (tabPly.length == tabCpu.length && tabCpu[number] == tabPly[number]){
 		setTimeout(startGame(), 2000)	
 		$(".countdown").html("Manche terminée !");
 		clearInterval(count)
@@ -117,18 +119,30 @@ function check(tabC, tabP){
 		
 }
 
-function lose(){
+function lose(loseType){
 	
-	var btn = document.createElement('btn');
-	document.body.appendChild(btn);
-	btn.setAttribute('style','border: solid; background: white; cursor: pointer;');
-	btn.innerHTML= "Relance ?";
-	btn.onclick = function(){
-		btn.remove();
+	switch (loseType){
+
+		case "noTime": console.log("perdu, faute de temps !");
+		$(".lose h1").text("Perdu faute de temps !");
+		$(".lose").fadeIn().css("display","flex");
+		break;
+		
+		case "wrongChoice" : console.log("perdu, mauvais bouton !");
+		$(".lose h1").text("Perdu mauvais bouton !");
+		$(".lose").fadeIn().css("display","flex");
+		clearInterval(count);
+		break;
+
+		default : console.log("perdu");
+		}
+	
+	$(".lose .ok").click(function(){
+		$(".lose").fadeOut();
 		$("#go").attr("disabled",false);
-	}
-	randomTab =[];
-} 
+	});
+	awake();
+}
 
 
 $ (document).ready(function(){
@@ -144,42 +158,48 @@ $ (document).ready(function(){
 		playerTab.push(1);
 		check(randomTab, playerTab);
 		console.log("joueur choisi vert !");
+		setTimeout(function(){
+		$("#green").attr("src", "images/green.png");	
+		},greenSound.duration*1000);
 	})
-	$("#green").mouseup(function(){
-		$("#green").attr("src","images/green.png");
-	})
+	
 	$("#red").mousedown(function(){
 		redSound.play();
 		$("#red").attr("src","images/l_red.png");
 		playerTab.push(2);
 		check(randomTab, playerTab);
 		console.log("joueur choisi rouge !");
-	})
-	$("#red").mouseup(function(){
+		setTimeout(function(){
 		$("#red").attr("src","images/red.png");
+		},redSound.duration*1000);
 	})
+	
+		
+	
 	$("#blue").mousedown(function(){
 		blueSound.play();
 		$("#blue").attr("src","images/l_blue.png");
 		playerTab.push(3);
 		check(randomTab, playerTab);
 		console.log("joueur choisi bleu !");
-	})
-	$("#blue").mouseup(function(){
+		setTimeout(function(){
 		$("#blue").attr("src","images/blue.png");
+		},blueSound.duration*1000);
 	})
+	
 	$("#yellow").mousedown(function(){
 		yellowSound.play();
 		$("#yellow").attr("src","images/l_yellow.png");
 		playerTab.push(4);
 		check(randomTab, playerTab);
 		console.log("joueur choisi jaune !");
-	})
-	$("#yellow").mouseup(function(){
+		setTimeout(function(){
 		$("#yellow").attr("src","images/yellow.png");
+		},yellowSound.duration*1000);
 	})
-
 	
+
+	awake();
 
 
 })

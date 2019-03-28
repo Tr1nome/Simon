@@ -16,11 +16,12 @@
             align-items: center;
             flex-flow: column wrap;
             width: 100%;
+            background-color: black;
         }
-        button{
-            position: absolute; 
-            top: 50%;
-            left:50%;
+        #go{
+            position: relative;
+            top: 215px;
+            left: 186px;
             border-radius: 50%;
             width: 30px;
             height: 30px;
@@ -31,6 +32,34 @@
     
         }
 
+        .countdown{
+
+            color: white;
+            position: absolute;
+            top: 500px;
+            left: 520px;
+            margin: 0px;
+        }
+        
+        .lose{
+
+            border:1px solid white;
+            width:39vw;
+            height:50vh;
+            color:white;
+            position:absolute;
+            background-color: black;
+            display: none;
+            justify-content: center;
+        }
+
+        .ok{
+            width: 100px;
+            height: 20px;
+            position: absolute;
+            bottom: 5px;
+        }
+
 
     </style>
 </head>
@@ -38,6 +67,14 @@
 <body>
     <div class="container">
         <button id="go" style = "background:green;"></button>
+        <div class = "countdown">
+        </div>
+
+        <div class = "lose">
+            <h1>Perdu !</h1>
+            <button class = "ok">Ok</button>
+
+        </div>
            
       
         <div class="side">
@@ -58,11 +95,7 @@
         </div>
 
     </div>
-    <div class = "countdown">
-        
-        
-
-    </div>
+    
 
     
 
