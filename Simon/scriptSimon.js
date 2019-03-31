@@ -1,3 +1,20 @@
+/**
+	 * Simon
+	 * @author : Leo Souly
+	 * @description : Simon game
+	 * 		maxRounds : 	@int : determine le nombre de rounds nécessaires pour gagner la partie
+	 * 		speed : 		@float  : facteur de vitesse qui influe sur la rapidité d'execution d'une chaine 
+	 * 		counter :       @int : renvoie le nombre de manche ecoulées
+	 *      canIncrease : 	@bool   : Si vrai alors l'ordi augmente la série d'un bloc, si faux rien ne se passe 
+	 * 		
+	 * 		
+	 */
+
+
+
+
+
+
 var buttons = ["red", "blue", "yellow", "green"];						//liste les boutons disponibles
 var buttonColors = {red: "assets/images/l_red.png", blue: "assets/images/l_blue.png",
  yellow: "assets/images/l_yellow.png", green: "assets/images/l_green.png"};			//on stock les images cliquées dans un objet
@@ -5,7 +22,8 @@ var swapColors = {red: "assets/images/red.png", blue: "assets/images/blue.png",
  yellow: "assets/images/yellow.png", green: "assets/images/green.png"}; 				//Les images de base
 var error = new Audio("assets/sounds/error.wav");								//Le son de l'erreur
 var victory = new Audio("assets/sounds/victory.mp3");							//Le son de victoire
-var click = new Audio("assets/sounds/click.mp3");								//Le son du clic
+var click = new Audio("assets/sounds/click.mp3");
+var fade = new Audio("assets/sounds/fade.wav");								//Le son du clic
 var audio = {
 	red: new Audio("assets/sounds/son1.mp3"), 									//Objet contenant les sons pour chaque couleur
 	blue: new Audio("assets/sounds/son2.mp3"), 
@@ -21,7 +39,7 @@ var maxRounds = 10;														//Nombre max de manches pour gagner
 
 $(document).ready(function(){											
 
-
+	$(".presentation").fadeIn(2000);
 	$(".ok").click(function(){											//Quand on clique sur le bouton qui a l'id ok 
 
 		window.location.reload();										//reset de la page en fin de partie
@@ -29,6 +47,16 @@ $(document).ready(function(){
 	})
 
 });
+
+function displayGame(){
+
+	$(".presentation").slideUp();
+	fade.play();
+	setTimeout(function(){
+		$(".container").fadeIn();
+	},1000);
+	
+}
 
 function buttonAnim(button){											//Fonction permettant d'animer les boutons
 	$("#"+button).attr("src", buttonColors[button]);					//On récupère les boutons par leur id et on change leur attribut scr pour y metrte l'image illuminée
@@ -48,11 +76,11 @@ function newGame(){
 	$("#start").css("background-color","#00FF00")						//La couelur de fond du bouton start devient vert fluo
 	.css("filter","drop-shadow(16px 16px 20px #00FF00)");				//drop shadow pour simuler la lumière
 	$(".countdown").css("color","red")									//Pareil sur le compteur
-	.css("filter","drop-shadow(16px 16px 20px red)");					//Pareil qu'au dessus mais en rouge
+	.css("filter","drop-shadow(0px 0px 10px red)");						//Pareil qu'au dessus mais en rouge
 
 
 	randomTab = []; 													//le tableau de l'ordi est initialisé en tableau vide
-	if (gameMove){ clearInterval(gameMove);								
+	if (gameMove){ clearInterval(gameMove);														
 	}
 	setTimeout(function() {
 		$(".countdown").html("--");										//Le contenu html du compteur est remplacé par 2 traits
@@ -147,7 +175,8 @@ function playerClick(button){											//fonction de detection du clic du joueu
 			console.log("victory");	
 			$(".countdown").html("GG EZ")								//sinon la partie est terminée et on gagne
 			victory.play();												//On joue le son de victoire				
-			win = setInterval(win,800);									//On lance l'interval win qui consiste a faire clignoter tous les boutons
+			win = setInterval(win,800);	
+			$(".score").html(counter);								//On lance l'interval win qui consiste a faire clignoter tous les boutons
 			setTimeout(function(){
 				$(".win").fadeIn();										//On attend 5 secondes pour afficher le message de victoire
 			},5000);
